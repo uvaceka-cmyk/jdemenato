@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "jdemnato",
+  "compatibility_date": "2026-08-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "./worker/index.ts",
+  "assets": {
+    "not_found_handling": "none",
+    "binding": "ASSETS"
+  },
+  "images": {
+    "binding": "IMAGES"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "jdemnato-d1",
+      // Po spuštění `wrangler d1 create jdemnato-d1` sem vlož vygenerované database_id.
+      "database_id": "REPLACE_AFTER_WRANGLER_D1_CREATE"
+    }
+  ]
+}
