@@ -16,7 +16,7 @@
       "binding": "DB",
       "database_name": "jdemnato-d1",
       // Po spuštění `wrangler d1 create jdemnato-d1` sem vlož vygenerované database_id.
-      "database_id": "REPLACE_AFTER_WRANGLER_D1_CREATE"
+      "database_id": "c9438bbf-8d74-4f32-b3c7-d5b0441eed13"
     }
   ]
 }
