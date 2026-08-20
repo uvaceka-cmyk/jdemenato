@@ -1,0 +1,18 @@
+.brand strong { color: var(--orange); }
+.supplier-register input,
+.supplier-register select,
+.supplier-register textarea {
+  padding: 14px;
+  border: 1px solid #cbd8d3;
+  border-radius: 10px;
+  background: #fff;
+  font: inherit;
+}
+.supplier-register textarea { min-height: 130px; resize: vertical; }
+.auth-success {
+  padding: 14px;
+  background: #e7f8eb;
+  color: #12634a;
+  border-radius: 10px;
+  font-weight: 700;
+}
