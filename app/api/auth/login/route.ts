@@ -14,15 +14,22 @@ export async function POST(request: Request): Promise<Response> {
   const password = String(form.get("password") || "");
   const returnTo = safeRelativePath(String(form.get("returnTo") || ""), "/ucet");
 
-  const user = await env.DB.prepare("SELECT id, password_hash FROM users WHERE email = ?")
-    .bind(email).first<{ id: string; password_hash: string }>();
-  const ok = user ? await verifyPassword(password, user.password_hash) : false;
-
-  if (!user || !ok) {
-    const url = `/prihlaseni?mode=login&error=${encodeURIComponent("Nesprávný e-mail nebo heslo.")}&return_to=${encodeURIComponent(returnTo)}&email=${encodeURIComponent(email)}`;
+const ip = request.headers.get("cf-connecting-ip") ?? "unknown";
+  const { success } = await env.REQUEST_LIMITER.limit({ key: `login:${ip}` });
+  if (!success) {
+    const url = `/prihlaseni?mode=login&error=${encodeURIComponent("Příliš mnoho pokusů o přihlášení. Zkuste to prosím za chvíli.")}&return_to=${encodeURIComponent(returnTo)}&email=${encodeURIComponent(email)}`;
     return redirectTo(url);
   }
 
-  const token = await createSession(user.id);
+const user = await env.DB.prepare("SELECT id, password_hash FROM users WHERE email = ?")
+  .bind(email).first<{ id: string; password_hash: string }>();
+  const ok = user ? await verifyPassword(password, user.password_hash) : false;
+
+if (!user || !ok) {
+  const url = `/prihlaseni?mode=login&error=${encodeURIComponent("Nesprávný e-mail nebo heslo.")}&return_to=${encodeURIComponent(returnTo)}&email=${encodeURIComponent(email)}`;
+  return redirectTo(url);
+}
+
+const token = await createSession(user.id);
   return redirectTo(returnTo, sessionCookieHeader(token));
 }
