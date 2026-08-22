@@ -83,3 +83,44 @@ export function sessionCookieHeader(token: string): string {
 export function clearedSessionCookieHeader(): string {
   return `${SESSION_COOKIE_NAME}=; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=0`;
 }
+
+
+                                   const RESET_TOKEN_MAX_AGE_SECONDS = 60 * 60;
+
+export async function createPasswordResetToken(userId: string): Promise<string> {
+  const token = `${crypto.randomUUID()}${crypto.randomUUID()}`.replace(/-/g, "");
+  const tokenHash = await sha256Hex(token);
+  const now = Date.now();
+  await env.DB.prepare(
+    "INSERT INTO password_resets (id, user_id, expires_at, created_at) VALUES (?, ?, ?, ?)",
+    ).bind(tokenHash, userId, now + RESET_TOKEN_MAX_AGE_SECONDS * 1000, now).run();
+  return token;
+}
+
+export async function consumePasswordResetToken(token: string): Promise<string | null> {
+  const tokenHash = await sha256Hex(token);
+  const row = await env.DB.prepare(
+    "SELECT user_id FROM password_resets WHERE id = ? AND expires_at > ?",
+    ).bind(tokenHash, Date.now()).first<{ user_id: string }>();
+  if (!row) return null;
+  await env.DB.prepare("DELETE FROM password_resets WHERE id = ?").bind(tokenHash).run();
+  return row.user_id;
+}
+
+export async function sendPasswordResetEmail(email: string, resetUrl: string): Promise<void> {
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: "JdemNaTo! <onboarding@resend.dev>",
+      to: email,
+      subject: "Obnova hesla – JdemNaTo!",
+      html: `<p>Dobrý den,</p><p>někdo (doufejme vy) požádal o obnovu hesla k účtu JdemNaTo!. Klikněte na odkaz níže a nastavte si nové heslo. Odkaz platí 1 hodinu.</p><p><a href="${resetUrl}">${resetUrl}</a></p><p>Pokud jste o obnovu hesla nežádali, tento e-mail jednoduše ignorujte — heslo zůstane beze změny.</p>`,
+    }),
+  });
+}
+
+async function sha256Hex(value: string): Promise<string> {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
+  return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
+}
