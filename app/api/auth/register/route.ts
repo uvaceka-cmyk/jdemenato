@@ -19,8 +19,15 @@ export async function POST(request: Request): Promise<Response> {
   const password = String(form.get("password") || "");
   const displayName = String(form.get("displayName") || "").trim().slice(0, 150);
   const returnTo = safeRelativePath(String(form.get("returnTo") || ""), "/ucet");
+  const honeypot = String(form.get("website") || "");
 
-  if (!displayName) return backToForm("Vyplňte prosím jméno.", returnTo, email, displayName);
+if (honeypot.trim()) return backToForm("Registraci se nepodařilo dokončit.", returnTo, email, displayName);
+
+const ip = request.headers.get("cf-connecting-ip") ?? "unknown";
+  const { success } = await env.REQUEST_LIMITER.limit({ key: `register:${ip}` });
+  if (!success) return backToForm("Příliš mnoho pokusů o registraci. Zkuste to prosím za chvíli.", returnTo, email, displayName);
+
+if (!displayName) return backToForm("Vyplňte prosím jméno.", returnTo, email, displayName);
   if (!email || !email.includes("@") || email.length > 320) {
     return backToForm("Zadejte platný e-mail.", returnTo, email, displayName);
   }
@@ -28,17 +35,17 @@ export async function POST(request: Request): Promise<Response> {
     return backToForm("Heslo musí mít alespoň 8 znaků.", returnTo, email, displayName);
   }
 
-  const existing = await env.DB.prepare("SELECT id FROM users WHERE email = ?").bind(email).first();
+const existing = await env.DB.prepare("SELECT id FROM users WHERE email = ?").bind(email).first();
   if (existing) {
     return backToForm("Tento e-mail už je registrovaný. Zkuste se přihlásit.", returnTo, email, displayName);
   }
 
-  const id = crypto.randomUUID();
+const id = crypto.randomUUID();
   const passwordHash = await hashPassword(password);
   await env.DB.prepare(
     "INSERT INTO users (id, email, password_hash, display_name, created_at) VALUES (?, ?, ?, ?, ?)",
-  ).bind(id, email, passwordHash, displayName, Date.now()).run();
+    ).bind(id, email, passwordHash, displayName, Date.now()).run();
 
-  const token = await createSession(id);
+const token = await createSession(id);
   return redirectTo(returnTo, sessionCookieHeader(token));
 }
