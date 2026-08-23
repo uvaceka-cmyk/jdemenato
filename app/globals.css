@@ -89,7 +89,7 @@
 .how h3{font-family:'Archivo',sans-serif;font-weight:600;font-size:20px;color:var(--text)}
 .how p{color:var(--text-dim);line-height:1.55}
 footer{background:var(--surface);color:var(--text-dim);padding:64px max(6vw,48px) 25px;border-top:1px solid var(--border)}
-.footer-main{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:50px}
+.footer-main{display:grid;grid-template-columns:2fr 1fr;gap:50px}
 .brand.inverse{color:var(--text)}
 .brand.inverse span{color:var(--text)}
 .footer-main>div{display:flex;flex-direction:column;gap:12px}
