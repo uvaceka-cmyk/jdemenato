@@ -39,7 +39,7 @@ export async function requireSessionUser(returnTo: string): Promise<SessionUser>
 }
 
 export function signInPath(returnTo: string): string {
-  return `${SIGN_IN_PATH}?return_to=${encodeURIComponent(safeRelativePath(returnTo, "/ucet"))}`;
+  return `${SIGN_IN_PATH}?mode=register&return_to=${encodeURIComponent(safeRelativePath(returnTo, "/ucet"))}`;
 }
 
 export function signOutPath(returnTo = "/"): string {
