@@ -129,3 +129,11 @@ footer{background:var(--surface);color:var(--text-dim);padding:64px max(6vw,48px
 .honeypot{position:absolute!important;left:-10000px!important}
 .feedback-card>.primary{width:100%}
 @media(max-width:600px){.feedback-launcher{right:12px;bottom:12px;font-size:12px}.feedback-card{padding:24px}}
+
+.empty-note{color:var(--text-dim);padding:20px 0}
+.empty-note a{color:var(--amber);font-weight:500}
+.admin-list{display:flex;flex-direction:column;gap:10px;margin:20px 0 40px}
+.admin-row{display:flex;justify-content:space-between;align-items:center;gap:20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 22px}
+.admin-row div{display:flex;flex-direction:column;gap:4px}
+.admin-row strong{color:var(--text)}
+.admin-row span{color:var(--text-dim);font-size:13px}
