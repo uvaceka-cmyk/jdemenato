@@ -1,4 +1,0 @@
-import type { Metadata } from "next";import Link from "../ui/SiteLink";import { gigs } from "../data";
-export const metadata:Metadata={title:"Aktuální zakázky",description:"Jednorázové i dlouhodobé zakázky pro živnostníky a týmy napříč obory.",alternates:{canonical:"/zakazky"}};
-export default function Page(){return <main className="simple"><Link href="/" className="brand"><span>JdemNa</span><strong>To!</strong></Link><p className="eyebrow">HLEDÁM ZAKÁZKU</p><h1>Aktuální poptávky</h1><div className="gig-list">{gigs.map((g,i)=><article key={g.title}><span className="gig-no">0{i+1}</span><div><small>{g.meta}</small><h3>{g.title}</h3><p>⌖ {g.place}</p></div><strong>{g.budget}</strong></article>)}</div><p>Kontakt, smlouva, faktura i platba probíhají přímo mezi stranami mimo JdemNaTo!.</p></main>}
-
