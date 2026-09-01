@@ -1,4 +1,4 @@
-# Nasazení JdemNaTo! na Cloudflare (vlastní účet)
+# Nasazení Zakly na Cloudflare (vlastní účet)
 
 Web běží na frameworku **vinext** (Next.js API na Vite) a nasazuje se jako
 Cloudflare Worker s D1 databází. Přihlašování je teď vlastní (e-mail +
@@ -67,5 +67,5 @@ nebo `wrangler`. Zatím web plně funguje na `workers.dev` adrese.
 - zvážit e-mailové notifikace (potvrzení registrace, reset hesla) — v MVP
   zatím není reset zapomenutého hesla, jen registrace a přihlášení.
 
-Platby zákazníků za zakázky přes JdemNaTo! neprobíhají. Budoucí platba se
+Platby zákazníků za zakázky přes Zakly neprobíhají. Budoucí platba se
 týká pouze měsíčního přístupu dodavatelů ke kontaktům.
