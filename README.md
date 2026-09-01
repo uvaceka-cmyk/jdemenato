@@ -1,4 +1,4 @@
-# JdemNaTo! MVP
+# Zakly MVP
 
 Český inzertní a vyhledávací portál propojující zaměstnání, zakázky a dodavatele. Portál není agenturou práce, nepřebírá životopisy, nevybírá kandidáty ani dodavatele a nevstupuje do ceny, smlouvy nebo platby za zakázku.
 
