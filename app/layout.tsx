@@ -20,14 +20,14 @@ const geist = Geist({ variable: "--font-geist", subsets: ["latin", "latin-ext"] 
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jdemnato.cz"),
-  title: { default: "JdemNaTo! – práce, zakázky a dodavatelé", template: "%s | JdemNaTo!" },
+  title: { default: "Zakly – práce, zakázky a dodavatelé", template: "%s | Zakly" },
   description: "Práce, zakázky a dodavatelé. Všechno na jednom místě. Český inzertní a vyhledávací portál.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
   },
-  openGraph: { type: "website", locale: "cs_CZ", siteName: "JdemNaTo!", title: "Práce, zakázky a dodavatelé na jednom místě", description: "Hledám práci. Zadávám zakázku. Nabízím práci. JdemNaTo!" },
-  twitter: { card: "summary_large_image", title: "JdemNaTo!", description: "Práce, zakázky a dodavatelé na jednom místě." },
+  openGraph: { type: "website", locale: "cs_CZ", siteName: "Zakly", title: "Práce, zakázky a dodavatelé na jednom místě", description: "Hledám práci. Zadávám zakázku. Nabízím práci. Zakly" },
+  twitter: { card: "summary_large_image", title: "Zakly", description: "Práce, zakázky a dodavatelé na jednom místě." },
 };
 
 export default function RootLayout({
