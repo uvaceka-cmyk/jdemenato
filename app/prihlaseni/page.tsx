@@ -18,12 +18,12 @@ export default async function Login({ searchParams }: { searchParams: Params }) 
   return (
     <>
       <header className="site-header">
-        <Link href="/" className="brand"><span>JdemNa</span><strong>To!</strong></Link>
+        <Link href="/" className="brand"><span>Zak</span><strong>ly</strong></Link>
       </header>
       <main className="login-page">
         <div>
           <span className="eyebrow">{mode === "register" ? "REGISTRACE" : "PŘIHLÁŠENÍ"}</span>
-          <h1>{mode === "register" ? "Vytvořit účet JdemNaTo!" : "Váš účet JdemNaTo!"}</h1>
+          <h1>{mode === "register" ? "Vytvořit účet Zakly" : "Váš účet Zakly"}</h1>
           <p>
             {mode === "register"
               ? "Zadejte jméno, e-mail a heslo. Po registraci si vyberete účet uchazeče, dodavatele nebo zaměstnavatele."
