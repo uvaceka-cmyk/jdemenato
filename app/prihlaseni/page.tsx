@@ -35,7 +35,7 @@ export default async function Login({ searchParams }: { searchParams: Params }) 
           {mode === "register" ? (
             <form className="supplier-register" method="post" action="/api/auth/register">
               <input type="hidden" name="returnTo" value={returnTo} />
-              <input type="text" name="website" tabIndex={-1} autoComplete="off" style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }} aria-hidden="true" />
+              <input type="text" name="hp_x9k2" autoCorrect="off" tabIndex={-1} autoComplete="off" style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }} aria-hidden="true" />
               <label>Jméno a příjmení *
                 <input required name="displayName" autoComplete="name" defaultValue={displayName} placeholder="Jan Novák" />
               </label>
