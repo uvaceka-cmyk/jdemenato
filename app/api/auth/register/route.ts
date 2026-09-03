@@ -19,7 +19,7 @@ export async function POST(request: Request): Promise<Response> {
   const password = String(form.get("password") || "");
   const displayName = String(form.get("displayName") || "").trim().slice(0, 150);
   const returnTo = safeRelativePath(String(form.get("returnTo") || ""), "/ucet");
-  const honeypot = String(form.get("website") || "");
+  const honeypot = String(form.get("hp_x9k2") || "");
 
 if (honeypot.trim()) return backToForm("Registraci se nepodařilo dokončit.", returnTo, email, displayName);
 
