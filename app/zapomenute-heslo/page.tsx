@@ -14,7 +14,7 @@ export default async function ForgotPassword({ searchParams }: { searchParams: P
   return (
     <>
       <header className="site-header">
-        <Link href="/" className="brand"><span>JdemNa</span><strong>To!</strong></Link>
+        <Link href="/" className="brand"><span>Zak</span><strong>ly</strong></Link>
       </header>
       <main className="login-page">
         <div>
